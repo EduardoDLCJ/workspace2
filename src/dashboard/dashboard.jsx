@@ -49,7 +49,7 @@ const Dashboard = () => {
           {/* Imagen a la izquierda */}
           <div className="w-full md:w-1/2">
             <img
-              src="src\assets\dashboard\info.jpg"
+              src="src/assets/dashboard/info.jpg"
               alt="WorkSpace"
               className="rounded-lg shadow-lg w-full"
             />

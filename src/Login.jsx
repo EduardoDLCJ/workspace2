@@ -18,6 +18,35 @@ const Login = () => {
     const [alertMessage, setAlertMessage] = useState('');
     const [alertType, setAlertType] = useState(''); // 'success' or 'error'
 
+    const validateInputs = () => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Validar formato de correo
+        const nameRegex = /^[a-zA-Z\s]+$/; // Solo letras y espacios para nombres
+        const phoneRegex = /^[0-9]{10}$/; // Teléfono de 10 dígitos
+        const ageRegex = /^[0-9]+$/; // Solo números para la edad
+
+        if (!emailRegex.test(email)) {
+            setAlertMessage('El correo no es válido.');
+            setAlertType('error');
+            return false;
+        }
+        if (!nameRegex.test(nombre) || !nameRegex.test(apellido)) {
+            setAlertMessage('El nombre y apellido solo deben contener letras.');
+            setAlertType('error');
+            return false;
+        }
+        if (!phoneRegex.test(telefono)) {
+            setAlertMessage('El teléfono debe tener 10 dígitos.');
+            setAlertType('error');
+            return false;
+        }
+        if (!ageRegex.test(edad)) {
+            setAlertMessage('La edad debe ser un número válido.');
+            setAlertType('error');
+            return false;
+        }
+        return true;
+    };
+
     const handleSubmitLogin = async (e) => {
         e.preventDefault();
         setCargaLogin(true);
@@ -58,8 +87,10 @@ const Login = () => {
     };
 
     const handleSubmitRegister = async (e) => {
-        setCarga(true);
         e.preventDefault();
+        if (!validateInputs()) return;
+
+        setCarga(true);
         try {
             const response = await fetch('https://workspaceapi.onrender.com/registro', {
                 method: 'POST',
