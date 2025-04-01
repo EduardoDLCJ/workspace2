@@ -171,7 +171,7 @@ const CrudUsuarios = () => {
         className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 transition-colors duration-300 text-blue-950"
         />
         <input
-        type="text"
+        type="date"
         placeholder="Edad"
         value={editandoUsuario ? editandoUsuario.edad : nuevoUsuario.edad}
         onChange={(e) =>
