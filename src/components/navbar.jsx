@@ -1,11 +1,36 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 
 const Navbar = ({ bgColor, bgOpacity }) => {
   const token = localStorage.getItem("authToken"); // Verifica si hay un token en localStorage
   const userName = localStorage.getItem("nombre"); // Obtiene el nombre del usuario
   const role = localStorage.getItem("rol"); // Obtiene el rol del usuario
+  const id = localStorage.getItem("id"); // Obtiene el id del usuario
   const [showMenu, setShowMenu] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false); // Estado para el menú móvil
+
+  useEffect(() => {
+    if (!token) return; // Si no hay token, no ejecutar la función
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`https://workspaceapi.onrender.com/login/token/${id}`); // Cambia la URL según tu API
+  
+        if (!response.ok) {
+          localStorage.removeItem("authToken");
+          localStorage.removeItem("nombre");
+          localStorage.removeItem("rol");
+          window.location.href = "/dashboard";
+        }
+      } catch (error) {
+        console.error("Error al obtener datos:", error);
+      }
+    };
+  
+    fetchData(); // Llamada inicial
+    const interval = setInterval(fetchData, 5000); // Llamar cada 5 segundos
+  
+    return () => clearInterval(interval); // Limpiar el intervalo al desmontar
+  }, []);
 
   return (
     <nav className={`${bgColor} ${bgOpacity} text-[#edfafa] shadow-md fixed top-0 left-0 w-full z-50`}>

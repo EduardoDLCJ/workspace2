@@ -102,18 +102,18 @@ const Entorno = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-gray-100 to-gray-300 text-white p-4 md:p-8">
+        <div className="min-h-screen bg-gradient-to-b from-[#EDFAFA] to-[#D3E3E6] text-[#5985B1] p-4 md:p-8">
             <Navbar bgColor="bg-[#5985b1]" bgOpacity="opacity-100" />
             <div className="max-w-6xl mx-auto mt-18">
-                <h1 className="text-3xl font-bold text-center mb-8 text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
+                <h1 className="text-6xl font-bold text-center mb-8 text-[#5985B1]">
                     Control de Entorno
                 </h1>
                 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     {/* Sección de Iluminación */}
-                    <div className="card xdxd shadow-xl">
-                        <div className="card-body">
-                            <h2 className="card-title text-2xl mb-4 text-gray-800">Control de Iluminación</h2>
+                    <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-[#D3E3E6] hover:shadow-xl transition-shadow duration-300">
+                        <div className="p-6">
+                            <h2 className="text-2xl font-bold mb-6 text-[#5985B1] text-center">Control de Iluminación</h2>
                             
                             {/* Simulación de habitación */}
                             <div className="relative w-full h-64 bg-gray-900 rounded-box overflow-hidden flex items-center justify-center mb-6 border border-gray-700">
@@ -146,125 +146,100 @@ const Entorno = () => {
                             
                             <div className="space-y-6">
                                 <div>
-                                    <label className="label">
-                                        <span className="label-text text-lg mr-2 text-blue-900">{brightness}%</span>
-                                    </label>
+                                    <div className="flex justify-between mb-2">
+                                        <span className="font-semibold text-[#5985B1]">Brillo: {brightness}%</span>
+                                    </div>
                                     <input
                                         type="range"
                                         min="0"
                                         max="100"
                                         value={brightness}
                                         onChange={handleBrightnessChange}
-                                        className="range range-primary range-lg"
+                                        className="w-full h-3 bg-[#D3E3E6] rounded-lg appearance-none cursor-pointer"
                                     />
                                 </div>
                                 
                                 <div>
-                                    <label className="label">
-                                        <span className="label-text text-lg text-blue-900">Color de la luz</span>
-                                    </label>
+                                    <div className="font-semibold text-[#5985B1] mb-2 text-center">Color de la luz</div>
                                     <div className="flex items-center justify-center gap-4">
                                         <input
                                             type="color"
                                             value={color}
                                             onChange={handleColorChange}
-                                            className="w-16 h-16 cursor-pointer rounded-full border-2 border-gray-400"
+                                            className="w-16 h-16 cursor-pointer rounded-full border-2 border-[#D3E3E6]"
                                         />
-                                        <div className="badge badge-lg text-blue-950" style={{ backgroundColor: color }}>
+                                        <div className="badge badge-lg font-semibold" style={{ backgroundColor: color, color: '#fff' }}>
                                             {color.toUpperCase()}
                                         </div>
                                     </div>
                                 </div>
 
                                 {/* Modos predefinidos */}
-<div className="mt-6">
-    <h3 className="text-lg font-semibold text-gray-800 mb-4">Modos predefinidos</h3>
-    <div className="flex flex-wrap gap-4">
-        <button
-            className="btn btn-primary"
-            onClick={() => {
-                setColor("#FFD700"); // Amarillo dorado
-                setBrightness(80); // Brillo alto
-            }}
-        >
-            Lectura
-        </button>
-        <button
-            className="btn btn-secondary"
-            onClick={() => {
-                setColor("#FF69B4"); // Rosa
-                setBrightness(50); // Brillo medio
-            }}
-        >
-            Relajación
-        </button>
-        <button
-            className="btn btn-accent"
-            onClick={() => {
-                setColor("#00FF00"); // Verde
-                setBrightness(100); // Brillo máximo
-            }}
-        >
-            Fiesta
-        </button>
-        <button
-            className="btn btn-warning"
-            onClick={() => {
-                setColor("#87CEEB"); // Azul cielo
-                setBrightness(30); // Brillo bajo
-            }}
-        >
-            Noche
-        </button>
-    </div>
-</div>
+                                <div className="mt-6">
+                                    <h3 className="text-lg font-semibold text-[#5985B1] mb-4 text-center">Modos predefinidos</h3>
+                                    <div className="flex flex-wrap gap-4 justify-center">
+                                        <button
+                                            className="px-4 py-2 bg-[#5985B1] text-white font-semibold rounded-lg shadow-md hover:bg-[#476a8c] transition-colors duration-300"
+                                            onClick={() => {
+                                                setColor("#FFD700");
+                                                setBrightness(80);
+                                            }}
+                                        >
+                                            Lectura
+                                        </button>
+                                        <button
+                                            className="px-4 py-2 bg-[#5985B1] text-white font-semibold rounded-lg shadow-md hover:bg-[#476a8c] transition-colors duration-300"
+                                            onClick={() => {
+                                                setColor("#FF69B4");
+                                                setBrightness(50);
+                                            }}
+                                        >
+                                            Relajación
+                                        </button>
+                                        <button
+                                            className="px-4 py-2 bg-[#5985B1] text-white font-semibold rounded-lg shadow-md hover:bg-[#476a8c] transition-colors duration-300"
+                                            onClick={() => {
+                                                setColor("#00FF00");
+                                                setBrightness(100);
+                                            }}
+                                        >
+                                            Fiesta
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     
                     {/* Sección de Clima */}
-                    <div className="space-y-6">
+                    <div className="space-y-8">
                         {/* Control de temperatura */}
-                        <div className="card xdxd shadow-xl">
-                            <div className="card-body">
-                                <h2 className="card-title text-2xl mb-4 text-gray-800">
+                        <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-[#D3E3E6] hover:shadow-xl transition-shadow duration-300">
+                            <div className="p-6">
+                                <h2 className="text-2xl font-bold mb-6 text-[#5985B1] text-center">
                                     Control de Temperatura
                                 </h2>
                                 
                                 <div className="flex flex-col items-center mb-6">
                                     {getTemperatureIcon()}
-                                    <div 
-                                        className="radial-progress text-primary mt-4" 
-                                        style={{
-                                            "--value": ((temperature - 16) / (30 - 16)) * 100, 
-                                            "--size": "8rem"
-                                        }}
-                                    >
-                                        <span className="text-2xl font-bold text-gray-800">
-                                            {temperature}°C
-                                        </span>
+                                    <div className="mt-6 text-4xl font-bold text-[#5985B1]">
+                                        {temperature}°C
                                     </div>
                                 </div>
                                 
                                 <div>
-                                    <label className="label">
-                                        {/** <span className="label-text text-lg">
-                                            Temperatura:
-                                        </span>
-                                        */}
-                                        <span className="label-text text-lg mr-1.5 text-blue-800">
-                                            {temperature}°C
-                                        </span>
-                                    </label>
+                                    <div className="flex justify-between mb-2">
+                                        <span className="font-semibold text-[#5985B1]">Temperatura: {temperature}°C</span>
+                                    </div>
                                     <input
                                         type="range"
                                         min="16"
                                         max="30"
                                         value={temperature}
                                         onChange={handleTemperatureChange}
-                                        className="range range-secondary range-lg"
+                                        className="w-full h-3 bg-[#D3E3E6] rounded-lg appearance-none cursor-pointer"
                                     />
-                                    <div className="flex justify-between text-xs px-2 mt-1 text-blue-800">
+                                    <div className="flex justify-between text-sm mt-1 text-[#5985B1]">
                                         <span>16°C</span>
                                         <span>23°C</span>
                                         <span>30°C</span>
@@ -274,49 +249,58 @@ const Entorno = () => {
                         </div>
 
                         {/* Control de ventilación */}
-                        <div className="card xdxd shadow-xl">
-                            <div className="card-body">
-                                <h2 className="card-title text-2xl mb-4 text-blue-800">Control de Ventilación</h2>
+                        <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-[#D3E3E6] hover:shadow-xl transition-shadow duration-300">
+                            <div className="p-6">
+                                <h2 className="text-2xl font-bold mb-6 text-[#5985B1] text-center">Control de Ventilación</h2>
                                 
                                 <div className="flex flex-col items-center mb-6">
-                                    <div className="relative">
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            className="w-16 h-16 text-blue-400"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor"
+                                    <div className="relative w-32 h-32 flex items-center justify-center">
+                                        {/* Base del ventilador */}
+                                        <div className="absolute w-24 h-24 rounded-full bg-[#D3E3E6] border-4 border-[#5985B1] flex items-center justify-center">
+                                            {/* Centro del ventilador */}
+                                            <div className="w-8 h-8 rounded-full bg-[#5985B1]"></div>
+                                        </div>
+                                        
+                                        {/* Aspas del ventilador con animación */}
+                                        <div 
+                                            className="absolute w-full h-full"
                                             style={{
                                                 animation: `spin ${3 / ventilation}s linear infinite`,
+                                                transformOrigin: 'center'
                                             }}
                                         >
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                strokeWidth={2}
-                                                d="M12 4v4m0 8v4m4-4h4m-8 0H4m7.293-7.293l2.828 2.828m0 0l2.828-2.828m-2.828 2.828L9.465 9.465m4.243 4.243l2.828 2.828m0 0l-2.828 2.828m2.828-2.828l-2.828-2.828"
-                                            />
-                                        </svg>
-                                        <div className="absolute -bottom-2 -right-2 badge badge-primary badge-lg">
+                                            {/* Aspa 1 */}
+                                            <div className="absolute top-1/2 left-1/2 w-24 h-4 bg-[#5985B1] rounded-full" 
+                                                style={{ transform: 'translate(-50%, -50%) rotate(0deg) translateX(20px)' }}></div>
+                                            {/* Aspa 2 */}
+                                            <div className="absolute top-1/2 left-1/2 w-24 h-4 bg-[#5985B1] rounded-full" 
+                                                style={{ transform: 'translate(-50%, -50%) rotate(120deg) translateX(20px)' }}></div>
+                                            {/* Aspa 3 */}
+                                            <div className="absolute top-1/2 left-1/2 w-24 h-4 bg-[#5985B1] rounded-full" 
+                                                style={{ transform: 'translate(-50%, -50%) rotate(240deg) translateX(20px)' }}></div>
+                                        </div>
+                                        
+                                        {/* Indicador de nivel */}
+                                        <div className="absolute -bottom-2 -right-2 px-3 py-1 bg-[#5985B1] text-white font-semibold rounded-full">
                                             {ventilation}
                                         </div>
                                     </div>
                                 </div>
                                 
                                 <div>
-                                    <label className="label">
-                                        {/** <span className="label-text text-lg">Nivel de ventilación</span> */}
-                                    </label>
+                                    <div className="flex justify-between mb-2">
+                                        <span className="font-semibold text-[#5985B1]">Velocidad: {ventilation}</span>
+                                    </div>
                                     <input
                                         type="range"
                                         min="1"
                                         max="5"
                                         value={ventilation}
                                         onChange={handleVentilationChange}
-                                        className="range range-accent range-lg"
+                                        className="w-full h-3 bg-[#D3E3E6] rounded-lg appearance-none cursor-pointer"
                                         step="1"
                                     />
-                                    <div className="flex justify-between text-xs px-1 mt-1 text-blue-800">
+                                    <div className="flex justify-between text-sm mt-1 text-[#5985B1]">
                                         {[1, 2, 3, 4, 5].map((level) => (
                                             <span key={level}>{level}</span>
                                         ))}
@@ -326,27 +310,21 @@ const Entorno = () => {
                         </div>
                         
                         {/* Control de música */}
-                        <div className="card xdxd shadow-xl">
-                            <div className="card-body">
-                                <h2 className="card-title text-2xl mb-4 text-blue-800">Control de Música</h2>
+                        <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-[#D3E3E6] hover:shadow-xl transition-shadow duration-300">
+                            <div className="p-6">
+                                <h2 className="text-2xl font-bold mb-6 text-[#5985B1] text-center">Control de Música</h2>
 
                                 {trackMetadata.length > 0 && (
-                                    <div className="mb-4">
-                                        <p className="text-lg font-semibold text-gray-800">
-                                            Canción: {trackMetadata[currentTrackIndex]?.title}
+                                    <div className="mb-6 text-center">
+                                        <p className="text-lg font-semibold text-[#5985B1]">
+                                            {trackMetadata[currentTrackIndex]?.title}
                                         </p>
-                                        <p className="text-sm text-gray-800">
-                                            Artista: {trackMetadata[currentTrackIndex]?.artist}
+                                        <p className="text-sm text-[#5985B1]">
+                                            {trackMetadata[currentTrackIndex]?.artist}
                                         </p>
-                                        <p className="text-sm text-gray-800">
-                                            Duración:{" "}
-                                            {Math.floor(
-                                                trackMetadata[currentTrackIndex]?.duration / 60
-                                            )}
-                                            :
-                                            {Math.floor(
-                                                trackMetadata[currentTrackIndex]?.duration % 60
-                                            )
+                                        <p className="text-sm text-[#5985B1]">
+                                            {Math.floor(trackMetadata[currentTrackIndex]?.duration / 60)}:
+                                            {Math.floor(trackMetadata[currentTrackIndex]?.duration % 60)
                                                 .toString()
                                                 .padStart(2, "0")}
                                         </p>
@@ -356,21 +334,21 @@ const Entorno = () => {
                                 <div className="flex justify-center items-center gap-4">
                                     <button
                                         onClick={handlePreviousTrack}
-                                        className="btn btn-secondary"
+                                        className="px-4 py-2 bg-[#5985B1] text-white font-semibold rounded-lg shadow-md hover:bg-[#476a8c] transition-colors duration-300"
                                     >
                                         Anterior
                                     </button>
                                     <button
                                         onClick={toggleMusic}
-                                        className={`btn btn-lg ${
-                                            isPlaying ? "btn-error" : "btn-success"
-                                        }`}
+                                        className={`px-6 py-3 text-lg ${
+                                            isPlaying ? "bg-[#e74c3c]" : "bg-[#2ecc71]"
+                                        } text-white font-semibold rounded-lg shadow-md hover:opacity-90 transition-colors duration-300`}
                                     >
                                         {isPlaying ? "Pausar" : "Reproducir"}
                                     </button>
                                     <button
                                         onClick={handleNextTrack}
-                                        className="btn btn-secondary"
+                                        className="px-4 py-2 bg-[#5985B1] text-white font-semibold rounded-lg shadow-md hover:bg-[#476a8c] transition-colors duration-300"
                                     >
                                         Siguiente
                                     </button>
@@ -390,7 +368,7 @@ const Entorno = () => {
                 <div className="mt-8 text-center">
                     <button
                         onClick={() => window.history.back()}
-                        className="btn btn-outline btn-primary"
+                        className="px-6 py-3 bg-white text-[#5985B1] font-semibold rounded-lg shadow-md border border-[#5985B1] hover:bg-[#5985B1] hover:text-white transition-colors duration-300"
                     >
                         Regresar a Entornos
                     </button>

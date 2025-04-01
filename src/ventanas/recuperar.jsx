@@ -15,6 +15,7 @@ const Recuperar = () => {
     const [token, setToken] = useState(null);
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
+    const cerrarSesion = localStorage.getItem('cerrarsesion') === 'true';
 
     useEffect(() => {
         const tokenFromUrl = searchParams.get('token');
@@ -98,7 +99,7 @@ const Recuperar = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ token, nuevaContrasena }),
+                body: JSON.stringify({ token, nuevaContrasena, cerrarSesion }),
             });
             if (response.ok) {
                 setAlertMessage('Contraseña cambiada con éxito.');
@@ -189,7 +190,17 @@ const Recuperar = () => {
                                     >
                                         <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
                                     </button>
+                                    
                                 </div>
+                                <label className="flex items-center text-gray-700 mt-2.5">
+                                    <input
+                                        type="checkbox"
+                                        className="mr-2"
+                                        onChange={(e) => localStorage.setItem('cerrarsesion', e.target.checked)}
+                                    />
+                                    Cerrar sesión en todos los dispositivos
+                                    <span className="text-xs text-gray-500"> (opcional)</span>
+                                </label>
                             </div>
                             <button
                                 type="submit"
@@ -202,6 +213,7 @@ const Recuperar = () => {
                                     'Cambiar Contraseña'
                                 )}
                             </button>
+
                         </form>
                     </>
                 ) : (
@@ -245,7 +257,7 @@ const Recuperar = () => {
                     </>
                 )}
                 <button
-                    onClick={() => window.history.back()}
+                    onClick={() => window.location.href = '/login'}
                     className="mt-4 w-full bg-gray-500 text-white p-2 rounded-3xl hover:bg-gray-600 transition-colors duration-300"
                 >
                     Volver

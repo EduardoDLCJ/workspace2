@@ -18,45 +18,17 @@ const Login = () => {
     const [alertMessage, setAlertMessage] = useState('');
     const [alertType, setAlertType] = useState(''); // 'success' or 'error'
 
-    const validateInputs = () => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Validar formato de correo
-        const nameRegex = /^[a-zA-Z\s]+$/; // Solo letras y espacios para nombres
-        const phoneRegex = /^[0-9]{10}$/; // Teléfono de 10 dígitos
-        const ageRegex = /^[0-9]+$/; // Solo números para la edad
-
-        if (!emailRegex.test(email)) {
-            setAlertMessage('El correo no es válido.');
-            setAlertType('error');
-            return false;
-        }
-        if (!nameRegex.test(nombre) || !nameRegex.test(apellido)) {
-            setAlertMessage('El nombre y apellido solo deben contener letras.');
-            setAlertType('error');
-            return false;
-        }
-        if (!phoneRegex.test(telefono)) {
-            setAlertMessage('El teléfono debe tener 10 dígitos.');
-            setAlertType('error');
-            return false;
-        }
-        if (!ageRegex.test(edad)) {
-            setAlertMessage('La edad debe ser un número válido.');
-            setAlertType('error');
-            return false;
-        }
-        return true;
-    };
-
     const handleSubmitLogin = async (e) => {
         e.preventDefault();
         setCargaLogin(true);
         try {
+            const rememberMe = localStorage.getItem('rememberMe') === 'true';
             const response = await fetch('https://workspaceapi.onrender.com/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email, password }),
+                body: JSON.stringify({ email, password, rememberMe }),
             });
             const data = await response.json();
             if (data.error) {
@@ -87,10 +59,8 @@ const Login = () => {
     };
 
     const handleSubmitRegister = async (e) => {
-        e.preventDefault();
-        if (!validateInputs()) return;
-
         setCarga(true);
+        e.preventDefault();
         try {
             const response = await fetch('https://workspaceapi.onrender.com/registro', {
                 method: 'POST',
@@ -143,54 +113,51 @@ const Login = () => {
                 </div>
             )}
 
-{/* Mitad izquierda con degradado - Oculto en móviles */}
-<div className="hidden md:flex md:w-1/2 bg-gradient-to-r from-blue-600 to-blue-100 relative items-center justify-center">
-    {/* Formas geométricas decorativas */}
-    <div className="absolute top-10 left-10 w-24 h-24 bg-white opacity-20 rounded-full"></div>
-    <div className="absolute top-40 left-20 w-32 h-32 bg-white opacity-30 rounded-lg"></div>
-    <div className="absolute bottom-20 left-10 w-20 h-20 bg-white opacity-25 rotate-45"></div>
-    <div className="absolute bottom-10 right-10 w-28 h-28 bg-white opacity-15 rounded-full"></div>
-    
-    {/* Contenedor de texto centrado */}
-    <div className="flex flex-col items-center justify-center text-center w-full px-4 z-10">
-        <h2 className="text-white text-3xl font-bold mb-6 w-full max-w-md px-4">
-            {isLogin ? '¡Bienvenido de nuevo!' : '¡Únete a nosotros!'}
-        </h2>
-        <p className="text-white text-lg mb-8 w-full max-w-md px-4 opacity-90">
-            {isLogin
-                ? 'Inicia sesión para descubrir todo lo que tenemos para ti.'
-                : 'Crea tu cuenta y disfruta de nuestros servicios exclusivos.'}
-        </p>
-    </div>
+            {/* Mitad izquierda con degradado - Oculto en móviles */}
+            <div className="hidden md:flex md:w-1/2 bg-gradient-to-r from-[#5985b1] to-blue-100 relative items-center justify-center">
+                {/* Formas geométricas decorativas */}
+                <div className="absolute top-10 left-10 w-24 h-24 bg-white opacity-20 rounded-full"></div>
+                <div className="absolute top-40 left-20 w-32 h-32 bg-white opacity-30 rounded-lg"></div>
+                <div className="absolute bottom-20 left-10 w-20 h-20 bg-white opacity-25 rotate-45"></div>
+                <div className="absolute bottom-10 right-10 w-28 h-28 bg-white opacity-15 rounded-full"></div>
+                
+                {/* Contenedor de texto centrado */}
+                <div className="flex flex-col items-center justify-center text-center w-full px-4 z-10">
+                    <h2 className="text-white text-3xl font-bold mb-6 w-full max-w-md px-4">
+                        {isLogin ? '¡Bienvenido de nuevo!' : '¡Únete a nosotros!'}
+                    </h2>
+                    <p className="text-white text-lg mb-8 w-full max-w-md px-4 opacity-90">
+                        {isLogin
+                            ? 'Inicia sesión para descubrir todo lo que tenemos para ti.'
+                            : 'Crea tu cuenta y disfruta de nuestros servicios exclusivos.'}
+                    </p>
+                </div>
 
-    
-            {/* Botón transparente con borde */}
-            <button
-                onClick={() => setIsLogin(!isLogin)}
-                className="absolute bottom-10 left-10 bg-transparent border-2 border-white text-white px-6 py-2 rounded-full hover:bg-blue-900 hover:bg-opacity-20 transition-colors duration-300 shadow-md"
-            >
-                {isLogin ? 'Regístrate aquí' : 'Inicia sesión'}
-            </button>
-        </div>
-
-
-            
-        {/* Mitad derecha con el formulario - Ocupa todo el ancho en móviles */}
-        <div className="w-full md:w-1/2 flex items-center justify-center bg-blue-100 p-4 md:p-0">
-            <div className="bg-blue-50 p-7 rounded-2xl md:rounded-4xl shadow-md w-full max-w-md relative z-10 sm:max-w-lg md:max-w-xl lg:max-w-2xl">
-                <h2 className="text-2xl font-bold mb-6 text-center text-blue-600 sm:text-3xl lg:text-4xl">
-                    {isLogin ? 'Iniciar sesión' : 'Registro'}
-                </h2>
-
-                {/* Mostrar este botón solo en móviles */}
+                {/* Botón transparente con borde */}
                 <button
                     onClick={() => setIsLogin(!isLogin)}
-                    className="md:hidden w-full text-center text-blue-500 underline mb-4 hover:text-blue-600 transition-colors duration-300"
+                    className="absolute bottom-10 left-10 bg-transparent border-2 border-white text-white px-6 py-2 rounded-full hover:bg-blue-900 hover:bg-opacity-20 transition-colors duration-300 shadow-md"
                 >
-                    {isLogin
-                        ? '¿No tienes una cuenta? Regístrate'
-                        : '¿Ya tienes una cuenta? Inicia sesión'}
+                    {isLogin ? 'Regístrate aquí' : 'Inicia sesión'}
                 </button>
+            </div>
+
+            {/* Mitad derecha con el formulario - Ocupa todo el ancho en móviles */}
+            <div className="w-full md:w-1/2 flex items-center justify-center bg-blue-100 p-4 md:p-0">
+                <div className="bg-blue-50 p-7 rounded-2xl md:rounded-4xl shadow-md w-full max-w-md relative z-10 sm:max-w-lg md:max-w-xl lg:max-w-2xl">
+                    <h2 className="text-2xl font-bold mb-6 text-center text-[#5985b1] sm:text-3xl lg:text-4xl">
+                        {isLogin ? 'Iniciar sesión' : 'Registro'}
+                    </h2>
+
+                    {/* Mostrar este botón solo en móviles */}
+                    <button
+                        onClick={() => setIsLogin(!isLogin)}
+                        className="md:hidden w-full text-center text-[#5985b1] underline mb-4 hover:text-blue-600 transition-colors duration-300"
+                    >
+                        {isLogin
+                            ? '¿No tienes una cuenta? Regístrate'
+                            : '¿Ya tienes una cuenta? Inicia sesión'}
+                    </button>
                     {isLogin ? (
                         <form onSubmit={handleSubmitLogin}>
                             {/* Formulario de inicio de sesión */}
@@ -213,7 +180,7 @@ const Login = () => {
                                         onChange={(e) =>
                                             setEmail(e.target.value)
                                         }
-                                        className="w-full focus:outline-none text-blue-700"
+                                        className="w-full focus:outline-none text-[#5985b1]"
                                         placeholder="Ingresa tu correo"
                                         required
                                     />
@@ -238,7 +205,7 @@ const Login = () => {
                                         onChange={(e) =>
                                             setPassword(e.target.value)
                                         }
-                                        className="w-full focus:outline-none text-blue-700"
+                                        className="w-full focus:outline-none text-[#5985b1]"
                                         placeholder="Ingresa tu contraseña"
                                         required
                                     />
@@ -253,7 +220,7 @@ const Login = () => {
                             </div>
                             <button
                                 type="submit"
-                                className="w-full bg-blue-500 text-white p-2 rounded-3xl hover:bg-blue-600 transition-colors duration-300"
+                                className="w-full bg-[#5985b1] text-white p-2 rounded-3xl hover:bg-[#717c88] transition-colors duration-300"
                             >
                                 {cargaLogin ? (
                                     <span className="loading loading-infinity loading-sm"></span>
@@ -261,11 +228,12 @@ const Login = () => {
                                     <p>Iniciar sesión</p>
                                 )}
                             </button>
-                            <div className="flex items-center justify-between mt-4">
+                            <div className="flex items-center justify-between mt-4 text-[#5985b1]">
                                 <label className="flex items-center">
                                     <input
                                         type="checkbox"
                                         className="mr-2"
+                                        onChange={(e) => localStorage.setItem('rememberMe', e.target.checked)}
                                     />
                                     Recordar sesión
                                 </label>
@@ -279,123 +247,123 @@ const Login = () => {
                         </form>
                     ) : (
                         <form onSubmit={handleSubmitRegister}>
-                        <div className="flex flex-col sm:flex-row sm:space-x-4">
-                            <div className="mb-4 sm:mb-0">
-                                <label className="block text-gray-700 mb-2" htmlFor="nombre">Nombre:</label>
+                            <div className="flex flex-col sm:flex-row sm:space-x-4 justify-center">
+                                <div className="mb-4 sm:mb-0 w-full sm:w-1/2">
+                                    <label className="block text-gray-700 mb-2" htmlFor="nombre">Nombre:</label>
+                                    <div className="flex items-center border border-gray-300 rounded p-2 focus-within:border-blue-500 transition-colors duration-300">
+                                        <FontAwesomeIcon icon={faUser} className="text-gray-500 mr-2" />
+                                        <input
+                                            type="text"
+                                            id="nombre"
+                                            value={nombre}
+                                            onChange={(e) => setNombre(e.target.value)}
+                                            className="w-full focus:outline-none text-[#5985b1]"
+                                            placeholder="Ingresa tu nombre"
+                                            required
+                                        />
+                                    </div>
+                                </div>
+                                <div className="mb-4 sm:mb-0 w-full sm:w-1/2">
+                                    <label className="block text-gray-700 mb-2" htmlFor="apellido">Apellido:</label>
+                                    <div className="flex items-center border border-gray-300 rounded p-2 focus-within:border-blue-500 transition-colors duration-300">
+                                        <FontAwesomeIcon icon={faUser} className="text-gray-500 mr-2" />
+                                        <input
+                                            type="text"
+                                            id="apellido"
+                                            value={apellido}
+                                            onChange={(e) => setApellido(e.target.value)}
+                                            className="w-full focus:outline-none text-[#5985b1]"
+                                            placeholder="Ingresa tu apellido"
+                                            required
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="flex flex-col sm:flex-row sm:space-x-4 justify-center">
+                                <div className="mb-4 sm:mb-0 w-full sm:w-1/2">
+                                    <label className="block text-gray-700 mb-2" htmlFor="telefono">Teléfono:</label>
+                                    <div className="flex items-center border border-gray-300 rounded p-2 focus-within:border-blue-500 transition-colors duration-300">
+                                        <FontAwesomeIcon icon={faPhone} className="text-gray-500 mr-2" />
+                                        <input
+                                            type="text"
+                                            id="telefono"
+                                            value={telefono}
+                                            onChange={(e) => setTelefono(e.target.value)}
+                                            className="w-full focus:outline-none text-[#5985b1]"
+                                            placeholder="Ingresa tu teléfono"
+                                            required
+                                        />
+                                    </div>
+                                </div>
+                                <div className="mb-6 sm:mb-0 w-full sm:w-1/2">
+                                    <label className="block text-gray-700 mb-2" htmlFor="edad">Fecha de cumpleaños:</label>
+                                    <div className="flex items-center border border-gray-300 rounded p-2 focus-within:border-blue-500 transition-colors duration-300">
+                                        <FontAwesomeIcon icon={faCalendar} className="text-gray-500 mr-2" />
+                                        <input
+                                            type="date"
+                                            id="edad"
+                                            value={edad}
+                                            onChange={(e) => setEdad(e.target.value)}
+                                            className="w-full focus:outline-none text-[#5985b1]"
+                                            placeholder="Ingresa tu edad"
+                                            required
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="mb-4">
+                                <label className="block text-gray-700 mb-2" htmlFor="email">Correo:</label>
                                 <div className="flex items-center border border-gray-300 rounded p-2 focus-within:border-blue-500 transition-colors duration-300">
-                                    <FontAwesomeIcon icon={faUser} className="text-gray-500 mr-2" />
+                                    <FontAwesomeIcon icon={faEnvelope} className="text-gray-500 mr-2" />
                                     <input
-                                        type="text"
-                                        id="nombre"
-                                        value={nombre}
-                                        onChange={(e) => setNombre(e.target.value)}
-                                        className="w-full focus:outline-none text-blue-700"
-                                        placeholder="Ingresa tu nombre"
+                                        type="email"
+                                        id="email"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        className="w-full focus:outline-none text-[#5985b1]"
+                                        placeholder="Ingresa tu correo"
                                         required
                                     />
                                 </div>
                             </div>
-                            <div className="mb-4 sm:mb-0">
-                                <label className="block text-gray-700 mb-2" htmlFor="apellido">Apellido:</label>
+                            <div className="mb-4">
+                                <label className="block text-gray-700 mb-2" htmlFor="password">Contraseña:</label>
                                 <div className="flex items-center border border-gray-300 rounded p-2 focus-within:border-blue-500 transition-colors duration-300">
-                                    <FontAwesomeIcon icon={faUser} className="text-gray-500 mr-2" />
+                                    <FontAwesomeIcon icon={faLock} className="text-gray-500 mr-2" />
                                     <input
-                                        type="text"
-                                        id="apellido"
-                                        value={apellido}
-                                        onChange={(e) => setApellido(e.target.value)}
-                                        className="w-full focus:outline-none text-blue-700"
-                                        placeholder="Ingresa tu apellido"
+                                        type={showPassword ? "text" : "password"}
+                                        id="password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        className="w-full focus:outline-none text-[#5985b1]"
+                                        placeholder="Ingresa tu contraseña"
                                         required
                                     />
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowPassword(!showPassword)}
+                                        className="ml-2 text-gray-500 hover:text-gray-700"
+                                    >
+                                        {showPassword ? "Ocultar" : "Mostrar"}
+                                    </button>
                                 </div>
+                                {password && password.length < 8 && (
+                                    <p className="text-red-500 text-sm mt-1">
+                                        La contraseña debe tener al menos 8 caracteres.
+                                    </p>
+                                )}
                             </div>
-                        </div>
-                        <div className="flex flex-col sm:flex-row sm:space-x-4">
-                            <div className="mb-4 sm:mb-0">
-                                <label className="block text-gray-700 mb-2" htmlFor="telefono">Teléfono:</label>
-                                <div className="flex items-center border border-gray-300 rounded p-2 focus-within:border-blue-500 transition-colors duration-300">
-                                    <FontAwesomeIcon icon={faPhone} className="text-gray-500 mr-2" />
-                                    <input
-                                        type="text"
-                                        id="telefono"
-                                        value={telefono}
-                                        onChange={(e) => setTelefono(e.target.value)}
-                                        className="w-full focus:outline-none text-blue-700"
-                                        placeholder="Ingresa tu teléfono"
-                                        required
-                                    />
-                                </div>
-                            </div>
-                            <div className="mb-6 sm:mb-0">
-                                <label className="block text-gray-700 mb-2" htmlFor="edad">Edad:</label>
-                                <div className="flex items-center border border-gray-300 rounded p-2 focus-within:border-blue-500 transition-colors duration-300">
-                                    <FontAwesomeIcon icon={faCalendar} className="text-gray-500 mr-2" />
-                                    <input
-                                        type="text"
-                                        id="edad"
-                                        value={edad}
-                                        onChange={(e) => setEdad(e.target.value)}
-                                        className="w-full focus:outline-none text-blue-700"
-                                        placeholder="Ingresa tu edad"
-                                        required
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="mb-4">
-                            <label className="block text-gray-700 mb-2" htmlFor="email">Correo:</label>
-                            <div className="flex items-center border border-gray-300 rounded p-2 focus-within:border-blue-500 transition-colors duration-300">
-                                <FontAwesomeIcon icon={faEnvelope} className="text-gray-500 mr-2" />
-                                <input
-                                    type="email"
-                                    id="email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    className="w-full focus:outline-none text-blue-700"
-                                    placeholder="Ingresa tu correo"
-                                    required
-                                />
-                            </div>
-                        </div>
-                        <div className="mb-4">
-                            <label className="block text-gray-700 mb-2" htmlFor="password">Contraseña:</label>
-                            <div className="flex items-center border border-gray-300 rounded p-2 focus-within:border-blue-500 transition-colors duration-300">
-                                <FontAwesomeIcon icon={faLock} className="text-gray-500 mr-2" />
-                                <input
-                                    type={showPassword ? "text" : "password"}
-                                    id="password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    className="w-full focus:outline-none text-blue-700"
-                                    placeholder="Ingresa tu contraseña"
-                                    required
-                                />
+                            {carga ? (
+                                <span className="loading loading-infinity loading-sm"></span>
+                            ) : (
                                 <button
-                                    type="button"
-                                    onClick={() => setShowPassword(!showPassword)}
-                                    className="ml-2 text-gray-500 hover:text-gray-700"
+                                    type="submit"
+                                    className="w-full bg-[#5985b1] text-white p-2 rounded hover:bg-blue-600 transition-colors duration-300"
+                                    disabled={password.length < 8}
                                 >
-                                    {showPassword ? "Ocultar" : "Mostrar"}
+                                    Registrarse
                                 </button>
-                            </div>
-                            {password && password.length < 8 && (
-                                <p className="text-red-500 text-sm mt-1">
-                                    La contraseña debe tener al menos 8 caracteres.
-                                </p>
                             )}
-                        </div>
-                        {carga ? (
-                            <span className="loading loading-infinity loading-sm"></span>
-                        ) : (
-                            <button
-                                type="submit"
-                                className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition-colors duration-300"
-                                disabled={password.length < 8}
-                            >
-                                Registrarse
-                            </button>
-                        )}
                         </form>
                     )}
                 </div>

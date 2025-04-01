@@ -49,7 +49,7 @@ const Dashboard = () => {
           {/* Imagen a la izquierda */}
           <div className="w-full md:w-1/2">
             <img
-              src="src/assets/dashboard/info.jpg"
+              src="https://i.imgur.com/XNrlj5l.jpeg"
               alt="WorkSpace"
               className="rounded-lg shadow-lg w-full"
             />
@@ -80,7 +80,7 @@ const Dashboard = () => {
     {/* Card 1 */}
     <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
       <img
-        src="src/assets/dashboard/card.jpg"
+        src="https://i.imgur.com/dUypAWz.jpeg"
         alt="Automatización de Entornos Inteligentes"
         className="rounded-lg mb-4 w-full"
       />
@@ -92,7 +92,7 @@ const Dashboard = () => {
     {/* Card 2 */}
     <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
       <img
-        src="src/assets/dashboard/card2.jpg"
+        src="https://i.imgur.com/o4P1jY0.jpeg"
         alt="App e Interfaz Web"
         className="rounded-lg mb-4 w-full"
       />
@@ -104,7 +104,7 @@ const Dashboard = () => {
     {/* Card 3 */}
     <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
       <img
-        src="src/assets/dashboard/card3.jpg"
+        src="https://i.imgur.com/URUATxX.jpeg"
         alt="Ahorro de Recursos"
         className="rounded-lg mb-4 w-full"
       />
@@ -116,7 +116,7 @@ const Dashboard = () => {
     {/* Card 4 */}
     <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
       <img
-        src="src/assets/dashboard/card4.jpg"
+        src="https://i.imgur.com/Blkr4xw.jpeg"
         alt="Tecnología Intuitiva"
         className="rounded-lg mb-4 w-full"
       />
@@ -147,7 +147,7 @@ const Dashboard = () => {
     {/* Imagen de la misión */}
     <div className="w-full md:w-1/2">
       <img
-        src="src/assets/dashboard/mision.jpg"
+        src="https://i.imgur.com/s3ksHJd.jpeg"
         alt="Misión"
         className="rounded-lg shadow-lg w-full"
       />
@@ -180,7 +180,7 @@ const Dashboard = () => {
     {/* Imagen de la visión */}
     <div className="w-full md:w-1/2 order-1 md:order-2">
       <img
-        src="src/assets/dashboard/vision.jpg"
+        src="https://i.imgur.com/Qowh3Yy.jpeg"
         alt="Visión"
         className="rounded-lg shadow-lg w-full"
       />
@@ -190,7 +190,7 @@ const Dashboard = () => {
 {/* Sección Descarga App Móvil */}
 <div
   className="relative h-[70vh] w-11/12 mx-auto my-16 bg-cover bg-center rounded-lg shadow-lg"
-  style={{ backgroundImage: "url('src/assets/dashboard/phone.jpg')" }}
+  style={{ backgroundImage: "url('https://i.imgur.com/jKCaVTU.jpeg')" }}
 >
   <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
     <h2 className="text-5xl md:text-7xl font-bold text-white mb-6">

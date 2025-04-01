@@ -10,6 +10,7 @@ import ProtectedRoute from './middleware/auth';
 import Entorno from './Entorno';
 import Recuperar from './ventanas/recuperar';
 import Dashboard2 from './dashboard/dashboard2';
+import Entornos2 from './ventanas/entornos2';
 
 const App = () => {
   return (
@@ -20,11 +21,15 @@ const App = () => {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/recuperar" element={<Recuperar />} />
         <Route path="/dashboard2" element={<Dashboard2 />} />
-        
+
+
         {/* Rutas protegidas */}
         <Route element={<ProtectedRoute allowedRoles={['user']} />}>
           <Route path="/entornos" element={<Entornos />} />
+          <Route path="/entornos2" element={<Entornos2 />} />
           <Route path="/entorno" element={<Entorno />} />
+
+
         </Route>
 
         <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
